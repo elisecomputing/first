@@ -1,0 +1,193 @@
+html,
+body,
+form {
+  height: 100%;
+}
+
+body {
+  background: #3E2723; /* Dark chocolate brown */
+  font-family: 'Slabo 27px', serif;
+  color: #F5F5F5; /* Light color for text */
+}
+
+form {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  left: 50%;
+  opacity: 0.01;
+  position: fixed;
+  top: 50%;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  margin: 0 60px;
+}
+
+.options label {
+  font-size: 3rem; /* Adjust emoji size */
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+  transition: transform 0.2s;
+  transform: scale(1);
+}
+
+.options label:hover {
+  transform: scale(1.1);
+}
+
+input.you:checked ~ .options label {
+  transform: scale(0.8);
+}
+
+input.you:nth-of-type(1):checked ~ .options label.r,
+input.you:nth-of-type(2):checked ~ .options label.p,
+input.you:nth-of-type(3):checked ~ .options label.s {
+  color: #BFCCA3; /* Highlight color */
+  transform: scale(1.25);
+}
+
+.it {
+  display: none; /* Hide the circles on the right side */
+}
+
+.game {
+  border-radius: 50%;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  width: 120px;
+  z-index: 10;
+}
+
+.game:before {
+  align-items: center;
+  background: #706C59; /* Gray background */
+  border-radius: 50%;
+  color: #F5F5F5; /* Light color for text */
+  content: 'Choose your weapon';
+  display: flex;
+  height: 120px; /* Larger circle size */
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 120px; /* Larger circle size */
+  z-index: 2;
+}
+
+.game .go {
+  animation-duration: .02s;
+  animation-name: random;
+  animation-iteration-count: infinite;
+  display: flex;
+  flex-direction: column;
+}
+
+.game .go:active {
+  animation-play-state: paused;
+}
+
+.game label {
+  cursor: pointer;
+  height: 120px;
+  width: 120px;
+}
+
+input.skynet:checked ~ .game .go {
+  animation-play-state: paused;
+}
+
+@keyframes random {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-240px); /* 120px * 2 */
+  }
+}
+
+/* Start */
+input.you:checked ~ .game:before {
+  display: none;
+}
+
+/* Results */
+input#you-1:checked ~ input#skynet-1:checked,
+input#you-2:checked ~ input#skynet-2:checked,
+input#you-3:checked ~ input#skynet-3:checked {
+  ~ .results .tie {
+    display: flex;
+  }
+}
+
+input#you-1:checked ~ input#skynet-3:checked,
+input#you-2:checked ~ input#skynet-1:checked,
+input#you-3:checked ~ input#skynet-2:checked {
+  ~ .results .win {
+    display: flex;
+  }
+}
+
+input#you-1:checked ~ input#skynet-2:checked,
+input#you-2:checked ~ input#skynet-3:checked,
+input#you-3:checked ~ input#skynet-1:checked {
+  ~ .results .lose {
+    display: flex;
+  }
+}
+
+input#skynet-1:checked ~ .it .r,
+input#skynet-2:checked ~ .it .p,
+input#skynet-3:checked ~ .it .s {
+  display: flex;
+}
+
+input.you:checked ~ input.skynet:checked ~ .results {
+  display: flex;
+}
+
+.results {
+  align-items: center;
+  display: none;
+  bottom: 0;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.results .win,
+.results .lose,
+.results .tie {
+  align-items: center;
+  background: #F8BBD0; /* Light pink */
+  border-radius: 50%;
+  color: #F5F5F5; /* Light color for text */
+  display: none;
+  font-size: 60px; /* Larger font size for results */
+  height: 140px; /* Larger size for results */
+  justify-content: center;
+  width: 140px; /* Larger size for results */
+}
+
+.results button {
+  background: #706C59;
+  border: none;
+  border-radius: 3px;
+  color: #F5F5F5; /* Light color for text */
+  cursor: pointer;
+  height: 40px;
+  margin: 20px 0 -60px;
+  width: 80px;
+}
